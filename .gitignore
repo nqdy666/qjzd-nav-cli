@@ -1,0 +1,16 @@
+# Node
+.pnpm-store
+node_modules
+dist
+
+# Mac
+.DS_Store
+
+example
+current-repos
+coverage
+
+docs/docs/.vitepress/cache
+docs/.vitepress/cache
+docs/.vitepress/dist
+docs/.vitepress/temp

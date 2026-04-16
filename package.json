@@ -1,0 +1,87 @@
+{
+  "name": "@qjzd/cli",
+  "version": "1.0.0",
+  "description": "CLI for managing QJZD Nav (https://nav.nianqin.vip) instances.",
+  "keywords": [
+    "cli",
+    "nav",
+    "qjzd"
+  ],
+  "homepage": "https://github.com/nianqin/qjzd-nav#readme",
+  "bugs": {
+    "url": "https://github.com/nianqin/qjzd-nav/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "nianqin",
+    "url": "https://github.com/nianqin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nianqin/qjzd-nav.git"
+  },
+  "bin": {
+    "qjzd-nav": "dist/cli.mjs"
+  },
+  "files": [
+    "dist",
+    "skills"
+  ],
+  "type": "module",
+  "types": "./dist/cli.d.mts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepare": "vp config",
+    "build": "vp pack",
+    "dev": "tsx src/cli.ts",
+    "docs:dev": "npx vitepress dev docs",
+    "docs:build": "npx vitepress build docs",
+    "docs:preview": "npx vitepress preview docs",
+    "test": "vp test",
+    "typecheck": "tsc --noEmit",
+    "check": "vp check --fix",
+    "fmt": "vp fmt",
+    "lint": "vp lint",
+    "release": "vp exec release-it",
+    "release:dry": "vp exec release-it --dry-run",
+    "prepublishOnly": "vp run build"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.3.2",
+    "@napi-rs/keyring": "^1.2.0",
+    "axios": "^1.13.6",
+    "cac": "^7.0.0",
+    "cli-table3": "^0.6.5",
+    "dayjs": "^1.11.20",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.1",
+    "markdown-it": "^14.1.1",
+    "markdown-it-anchor": "^9.2.0",
+    "mime-types": "^3.0.2",
+    "ora": "^9.3.0",
+    "pretty-bytes": "^7.1.0",
+    "semver": "^7.7.4",
+    "string-width": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/markdown-it": "^14.1.2",
+    "@types/mime-types": "^3.0.1",
+    "@types/node": "^24.12.0",
+    "@types/semver": "^7.7.1",
+    "@typescript/native-preview": "7.0.0-dev.20260318.1",
+    "@vitest/coverage-v8": "^4.1.0",
+    "release-it": "^19.2.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite-plus": "catalog:",
+    "vitepress": "^1.6.4",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "packageManager": "pnpm@10.32.1"
+}

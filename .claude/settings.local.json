@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(node dist/cli.mjs settings get)",
+      "Bash(npm run *)",
+      "Bash(npm test *)"
+    ]
+  }
+}

@@ -1,93 +1,198 @@
-# qjzd-nav-cli
+# QJZD Nav CLI
 
+[简体中文](./README.zh-CN.md)
 
+A command-line tool for managing [QJZD Nav](https://nav.qjzd.online) instances.
 
-## Getting started
+## Install
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.nianqin.vip/nianqin/qjzd-nav-cli.git
-git branch -M main
-git push -uf origin main
+```sh
+npm install -g @qjzd/cli
 ```
 
-## Integrate with your tools
+The installed binary is:
 
-* [Set up project integrations](https://gitlab.nianqin.vip/nianqin/qjzd-nav-cli/-/settings/integrations)
+```sh
+qjzd-nav
+```
 
-## Collaborate with your team
+Check the version:
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+```sh
+qjzd-nav --version
+```
 
-## Test and Deploy
+## Requirements
 
-Use the built-in continuous integration in GitLab.
+- Node.js `>= 22`
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+## Quick Start
 
-***
+### Login with password
 
-# Editing this README
+```sh
+qjzd-nav auth login \
+  --profile default \
+  --url https://nav.qjzd.online \
+  --password <your-password>
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+The password is encrypted with RSA before being sent to the server.
 
-## Suggestions for a good README
+### Verify the current profile
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```sh
+qjzd-nav auth current
+qjzd-nav auth profile list
+```
 
-## Name
-Choose a self-explaining name for your project.
+## Common Usage
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Get help:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```sh
+qjzd-nav --help
+qjzd-nav auth --help
+qjzd-nav link --help
+qjzd-nav category --help
+qjzd-nav tag --help
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Example root help output:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```text
+qjzd-nav/1.0.0
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Usage:
+  $ qjzd-nav <command> [options]
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Commands:
+  auth          Authentication commands
+  link          Link management commands
+  category      Category management commands
+  tag           Tag management commands
+  backup        Backup management commands
+  settings      Settings management commands
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+For more info, run any command with the `--help` flag:
+  $ qjzd-nav auth --help
+  $ qjzd-nav link --help
+  $ qjzd-nav category --help
+  $ qjzd-nav tag --help
+  $ qjzd-nav backup --help
+  $ qjzd-nav settings --help
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Options:
+  -h, --help     Display this message
+  -v, --version  Display version number
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Use a specific saved profile:
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```sh
+qjzd-nav link list --profile default
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Use JSON output for scripting:
+
+```sh
+qjzd-nav link list --json
+qjzd-nav category list --json
+```
+
+Enable shell completion:
+
+For `bash`:
+
+```sh
+eval "$(qjzd-nav completion bash)"
+```
+
+For `zsh`:
+
+```sh
+eval "$(qjzd-nav completion zsh)"
+```
+
+After enabling completion, you can use <kbd>Tab</kbd> to complete commands such as:
+
+```sh
+qjzd-nav <TAB>
+qjzd-nav auth <TAB>
+qjzd-nav link <TAB>
+```
+
+## Main Command Areas
+
+QJZD Nav CLI includes these command groups:
+
+- `auth` - Authentication and profile management
+- `link` - Link CRUD operations
+- `category` - Category CRUD operations
+- `tag` - Tag CRUD operations
+- `backup` - Backup and restore operations
+- `settings` - Site settings management
+
+For details on any command, use `--help`.
+
+## Agent Skills
+
+This package ships with reusable skills under the root `skills/` directory.
+
+Included skills:
+
+- `qjzd-nav-cli`
+- `qjzd-nav-cli-auth`
+- `qjzd-nav-cli-content`
+- `qjzd-nav-cli-backup`
+
+## Configuration
+
+Profile metadata is stored in:
+
+- `$QJZD_NAV_CLI_CONFIG_DIR/config.json` if `QJZD_NAV_CLI_CONFIG_DIR` is set
+- otherwise `$XDG_CONFIG_HOME/qjzd-nav/config.json`
+- otherwise `$HOME/.config/qjzd-nav/config.json`
+
+Credentials are stored in the system keyring via `@napi-rs/keyring`.
+
+## Development
+
+Useful commands:
+
+```sh
+pnpm typecheck
+vp lint
+vp test
+vp pack
+```
+
+## Publishing
+
+Before publishing, verify the package contents:
+
+```sh
+npm pack --dry-run
+```
+
+Create a release version locally without publishing to npm:
+
+```sh
+vp run release
+vp run release:dry
+```
+
+This uses `release-it` to bump the version, create a release commit and git tag, push them upstream, and create a GitHub Release.
+It does not publish the package to npm.
+
+The published package should include:
+
+- `dist/`
+- `skills/`
+- `README.md`
+- `README.zh-CN.md`
+- `LICENSE`
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+MIT
