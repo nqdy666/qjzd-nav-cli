@@ -7,7 +7,7 @@ A command-line tool for managing [QJZD Nav](https://nav.qjzd.online) instances.
 ## Install
 
 ```sh
-npm install -g nav-qjzd-cli
+npm install -g qjzd-nav-cli
 ```
 
 The installed binary is:

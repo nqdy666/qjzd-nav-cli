@@ -1,5 +1,5 @@
 {
-  "name": "nav-qjzd-cli",
+  "name": "qjzd-nav-cli",
   "version": "1.3.0",
   "description": "CLI for managing QJZD Nav (https://nav.qjzd.online) instances.",
   "keywords": [
@@ -7,9 +7,9 @@
     "nav",
     "qjzd"
   ],
-  "homepage": "https://github.com/nqdy666/nav-qjzd-cli#readme",
+  "homepage": "https://github.com/nqdy666/qjzd-nav-cli#readme",
   "bugs": {
-    "url": "https://github.com/nqdy666/nav-qjzd-cli/issues"
+    "url": "https://github.com/nqdy666/qjzd-nav-cli/issues"
   },
   "license": "MIT",
   "author": {
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nqdy666/nav-qjzd-cli.git"
+    "url": "git+https://github.com/nqdy666/qjzd-nav-cli.git"
   },
   "bin": {
     "qjzd-nav": "dist/cli.mjs"

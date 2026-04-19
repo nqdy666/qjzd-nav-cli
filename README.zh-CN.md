@@ -7,7 +7,7 @@
 ## 安装
 
 ```sh
-npm install -g nav-qjzd-cli
+npm install -g qjzd-nav-cli
 ```
 
 安装后可执行命令为：
