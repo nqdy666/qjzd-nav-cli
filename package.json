@@ -1,24 +1,24 @@
 {
   "name": "@qjzd/cli",
-  "version": "1.3.0",
-  "description": "CLI for managing QJZD Nav (https://nav.nianqin.vip) instances.",
+  "version": "1.3.1",
+  "description": "CLI for managing QJZD Nav (https://nav.qjzd.online) instances.",
   "keywords": [
     "cli",
     "nav",
     "qjzd"
   ],
-  "homepage": "https://github.com/nianqin/qjzd-nav#readme",
+  "homepage": "https://github.com/nqdy666/nav-qjzd-cli#readme",
   "bugs": {
-    "url": "https://github.com/nianqin/qjzd-nav/issues"
+    "url": "https://github.com/nqdy666/nav-qjzd-cli/issues"
   },
   "license": "MIT",
   "author": {
-    "name": "nianqin",
-    "url": "https://github.com/nianqin"
+    "name": "nqdy666",
+    "url": "https://github.com/nqdy666"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nianqin/qjzd-nav.git"
+    "url": "git+https://github.com/nqdy666/nav-qjzd-cli.git"
   },
   "bin": {
     "qjzd-nav": "dist/cli.mjs"

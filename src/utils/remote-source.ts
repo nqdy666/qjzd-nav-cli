@@ -3,7 +3,7 @@ import { confirm } from "@inquirer/prompts";
 import { CliError } from "./errors.js";
 import { printJson } from "./output.js";
 
-export const TRUSTED_REMOTE_PACKAGE_SOURCE_HOST = "nav.nianqin.vip";
+export const TRUSTED_REMOTE_PACKAGE_SOURCE_HOST = "nav.qjzd.online";
 
 export interface RemotePackageSourceConfirmationOptions {
   json?: boolean;
