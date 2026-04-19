@@ -1,5 +1,5 @@
 ---
-name: qjzd-nav-cli-backup
+name: qjzd-nav-cli-operations
 version: 1.0.0
 description: Use when managing QJZD Nav backups, restore, and site settings including uploading background images, logos, and favicons.
 references:
@@ -13,7 +13,7 @@ metadata:
     cliHelp: "qjzd-nav backup --help && qjzd-nav settings --help"
 ---
 
-# QJZD Nav CLI Backup
+# QJZD Nav CLI Operations
 
 Use this skill for `qjzd-nav backup` and `qjzd-nav settings`.
 

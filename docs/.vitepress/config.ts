@@ -58,7 +58,7 @@ export default defineConfig({
             { text: "qjzd-nav-cli", link: "/skills/qjzd-nav-cli" },
             { text: "qjzd-nav-cli-auth", link: "/skills/qjzd-nav-cli-auth" },
             { text: "qjzd-nav-cli-content", link: "/skills/qjzd-nav-cli-content" },
-            { text: "qjzd-nav-cli-backup", link: "/skills/qjzd-nav-cli-backup" },
+            { text: "qjzd-nav-cli-operations", link: "/skills/qjzd-nav-cli-operations" },
           ],
         },
       ],

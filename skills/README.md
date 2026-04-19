@@ -7,7 +7,7 @@ Recommended loading order for agents:
 1. `qjzd-nav-cli` when the task is broad or mixed.
 2. `qjzd-nav-cli-auth` when authentication or profile setup is needed.
 3. `qjzd-nav-cli-content` for links, categories, and tags management.
-4. `qjzd-nav-cli-backup` for backup, restore, and settings management.
+4. `qjzd-nav-cli-operations` for backup, restore, and settings management.
 
 Design goals:
 

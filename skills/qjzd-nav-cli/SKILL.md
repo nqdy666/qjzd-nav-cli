@@ -5,7 +5,7 @@ description: Use when the task involves QJZD Nav CLI, including managing links, 
 references:
   - ../qjzd-nav-cli-auth
   - ../qjzd-nav-cli-content
-  - ../qjzd-nav-cli-backup
+  - ../qjzd-nav-cli-operations
 metadata:
   openclaw:
     category: developer-tools
@@ -24,7 +24,7 @@ If the request only says "use QJZD Nav CLI" or mixes multiple areas, start here,
 
 - `qjzd-nav-cli-auth`: login, profile setup, profile switching, keyring and credential repair
 - `qjzd-nav-cli-content`: links, categories, and tags management
-- `qjzd-nav-cli-backup`: backup, restore, and settings management
+- `qjzd-nav-cli-operations`: backup, restore, and settings management
 
 ## Fast Routing
 

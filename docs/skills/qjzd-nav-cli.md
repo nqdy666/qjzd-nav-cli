@@ -10,11 +10,11 @@
 
 ## Skill 映射
 
-| 子领域                  | 对应 Skill             |
-| ----------------------- | ---------------------- |
-| 登录、Profile、凭据修复 | `qjzd-nav-cli-auth`    |
-| 链接、分类、标签管理    | `qjzd-nav-cli-content` |
-| 备份、恢复、设置管理    | `qjzd-nav-cli-backup`  |
+| 子领域                  | 对应 Skill                |
+| ----------------------- | ------------------------- |
+| 登录、Profile、凭据修复 | `qjzd-nav-cli-auth`       |
+| 链接、分类、标签管理    | `qjzd-nav-cli-content`    |
+| 备份、恢复、设置管理    | `qjzd-nav-cli-operations` |
 
 ## 快速定位
 

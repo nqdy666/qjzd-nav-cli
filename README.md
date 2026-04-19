@@ -144,7 +144,7 @@ Included skills:
 - `qjzd-nav-cli`
 - `qjzd-nav-cli-auth`
 - `qjzd-nav-cli-content`
-- `qjzd-nav-cli-backup`
+- `qjzd-nav-cli-operations`
 
 ## Configuration
 

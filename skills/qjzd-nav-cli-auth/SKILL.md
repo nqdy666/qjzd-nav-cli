@@ -77,4 +77,4 @@ qjzd-nav auth profile delete production --force
 ## Routing
 
 - Use `qjzd-nav-cli-content` for links, categories, and tags.
-- Use `qjzd-nav-cli-backup` for backups, restore, and settings.
+- Use `qjzd-nav-cli-operations` for backups, restore, and settings.

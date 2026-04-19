@@ -146,7 +146,7 @@ QJZD Nav CLI 包含以下命令分组：
 - `qjzd-nav-cli`
 - `qjzd-nav-cli-auth`
 - `qjzd-nav-cli-content`
-- `qjzd-nav-cli-backup`
+- `qjzd-nav-cli-operations`
 
 ## 配置
 
