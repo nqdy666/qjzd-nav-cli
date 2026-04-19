@@ -11,7 +11,7 @@ QJZD Nav CLI 是用于管理 QJZD Nav 实例的命令行工具，支持链接、
 通过 npm 全局安装：
 
 ```sh
-npm install -g @qjzd/cli
+npm install -g nav-qjzd-cli
 ```
 
 安装后可执行命令为 `qjzd-nav`。

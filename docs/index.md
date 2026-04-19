@@ -37,6 +37,6 @@ features:
 
 <div style="text-align: center; padding: 2rem 0;">
   <h2>安装</h2>
-  <pre><code>npm install -g @qjzd/cli</code></pre>
+  <pre><code>npm install -g nav-qjzd-cli</code></pre>
   <p>安装后可执行命令为 <code>qjzd-nav</code></p>
 </div>
