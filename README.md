@@ -193,6 +193,27 @@ The published package should include:
 - `README.zh-CN.md`
 - `LICENSE`
 
+### Publishing Skills to ClawHub
+
+Skills can be published to [ClawHub](https://clawhub.dev) for AI agent reuse:
+
+```sh
+# 1. Login to ClawHub
+npx clawhub@latest login --token <your-token>
+
+# 2. Publish all skills (--version is required)
+npx clawhub@latest publish "skills/qjzd-nav-cli" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-auth" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-content" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-operations" --version 1.3.2
+```
+
+Verify login status:
+
+```sh
+npx clawhub@latest whoami
+```
+
 ## License
 
 MIT

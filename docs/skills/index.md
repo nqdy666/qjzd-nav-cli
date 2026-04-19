@@ -41,6 +41,27 @@ skills/
 加载 skills/qjzd-nav-cli-auth
 ```
 
+## 发布到 ClawHub
+
+Skills 支持发布到 [ClawHub](https://clawhub.dev) 供 AI agents 复用。
+
+```bash
+# 1. 登录 ClawHub
+npx clawhub@latest login --token <your-token>
+
+# 2. 发布所有 skills（需要指定 --version）
+npx clawhub@latest publish "skills/qjzd-nav-cli" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-auth" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-content" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-operations" --version 1.3.2
+```
+
+验证登录状态：
+
+```bash
+npx clawhub@latest whoami
+```
+
 ## 相关资源
 
 - [CLI 命令参考](/cli/)

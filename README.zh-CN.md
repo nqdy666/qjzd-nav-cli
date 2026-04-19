@@ -195,6 +195,27 @@ vp run release:dry
 - `README.zh-CN.md`
 - `LICENSE`
 
+### 发布 Skills 到 ClawHub
+
+Skills 可发布到 [ClawHub](https://clawhub.dev) 供 AI agents 复用：
+
+```sh
+# 1. 登录 ClawHub
+npx clawhub@latest login --token <your-token>
+
+# 2. 发布所有 skills（--version 必填）
+npx clawhub@latest publish "skills/qjzd-nav-cli" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-auth" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-content" --version 1.3.2
+npx clawhub@latest publish "skills/qjzd-nav-cli-operations" --version 1.3.2
+```
+
+验证登录状态：
+
+```sh
+npx clawhub@latest whoami
+```
+
 ## 许可证
 
 MIT
