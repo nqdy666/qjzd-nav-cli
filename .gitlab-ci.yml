@@ -44,7 +44,7 @@ variables:
 deploy-docs:
   stage: deploy
   image: alpine:latest
-  needs: ["build-docs"]
+  # needs: ["build-docs"]
   <<: *ssh_setup
   script:
     - |
