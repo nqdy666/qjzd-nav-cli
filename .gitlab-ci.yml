@@ -10,6 +10,7 @@ build-docs:
   stage: build
   image: harbor.nianqin.vip/proxy/node:22-slim
   before_script:
+    - sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/*.list /etc/apt/sources.list
     - apt-get update && apt-get install -y git
     - npm config set registry $PNPM_CONFIG_REGISTRY
     - npm install -g pnpm
