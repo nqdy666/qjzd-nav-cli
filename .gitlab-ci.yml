@@ -8,7 +8,7 @@ variables:
 
 build-docs:
   stage: build
-  image: node:24-alpine
+  image: harbor.nianqin.vip/proxy/node:24-alpine
   before_script:
     # - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     # - apk add --no-cache git python3 make g++
