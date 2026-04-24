@@ -8,12 +8,11 @@ variables:
 
 build-docs:
   stage: build
-  image: node:22-alpine
+  image: harbor.nianqin.vip/proxy/node:22-slim
   before_script:
-    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-    - apk add --no-cache git python3 make g++
-    - corepack enable
-    - pnpm config set registry $PNPM_CONFIG_REGISTRY
+    - apt-get update && apt-get install -y git
+    - npm config set registry $PNPM_CONFIG_REGISTRY
+    - npm install -g pnpm
     - pnpm install --frozen-lockfile || pnpm install
   script:
     - pnpm run docs:build
