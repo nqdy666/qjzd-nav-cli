@@ -1,0 +1,110 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCS_OUTPUT_DIR: "dist"
+
+build-docs:
+  stage: build
+  image: node:22-alpine
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm run docs:build
+  artifacts:
+    paths:
+      - docs/.vitepress/dist/
+    expire_in: 1 hour
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    # - if: $CI_COMMIT_TAG =~ /^v/
+
+# 部署服务器配置 (分组变量)
+# 每台服务器一组变量，N 从 1 开始递增
+# DEPLOY_SERVER_1_NAME: 服务器名称
+# DEPLOY_SERVER_1_HOST: 服务器地址
+# DEPLOY_SERVER_1_USER: SSH 用户
+# DEPLOY_SERVER_1_PORT: SSH 端口 (可选，默认 22)
+# DEPLOY_SERVER_1_PATH: 部署目录
+# DEPLOY_SERVERS_COUNT: 服务器数量
+
+.ssh_setup: &ssh_setup
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk add --no-cache openssh-client rsync
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+deploy-docs:
+  stage: deploy
+  image: alpine:latest
+  needs: ["build-docs"]
+  <<: *ssh_setup
+  script:
+    - |
+      # 自动检测已配置的服务器数量
+      DEPLOY_SERVERS_COUNT=0
+      for i in $(seq 1 99); do
+        HOST_VAR="DEPLOY_SERVER_${i}_HOST"
+        if [ -n "${!HOST_VAR}" ]; then
+          DEPLOY_SERVERS_COUNT=$i
+        fi
+      done
+
+      if [ "$DEPLOY_SERVERS_COUNT" -eq 0 ]; then
+        echo "No servers configured, skipping deploy"
+        exit 0
+      fi
+
+      echo "=== Starting deployment to $DEPLOY_SERVERS_COUNT server(s) ==="
+
+      for i in $(seq 1 "$DEPLOY_SERVERS_COUNT"); do
+        NAME_VAR="DEPLOY_SERVER_${i}_NAME"
+        HOST_VAR="DEPLOY_SERVER_${i}_HOST"
+        USER_VAR="DEPLOY_SERVER_${i}_USER"
+        PORT_VAR="DEPLOY_SERVER_${i}_PORT"
+        PATH_VAR="DEPLOY_SERVER_${i}_PATH"
+        SSH_KEY_VAR="DEPLOY_SERVER_${i}_SSH_KEY"
+
+        NAME="${!NAME_VAR}"
+        HOST="${!HOST_VAR}"
+        USER="${!USER_VAR}"
+        PORT="${!PORT_VAR:-22}"
+        PATH="${!PATH_VAR}"
+        SSH_KEY="${!SSH_KEY_VAR}"
+
+        if [ -z "$HOST" ] || [ -z "$USER" ] || [ -z "$PATH" ]; then
+          echo "--- Skipping server $i: missing required config ---"
+          continue
+        fi
+
+        # 添加服务器 SSH key 到 known_hosts
+        ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+        # 添加 SSH 私钥
+        SSH_KEY_FILE=~/.ssh/server_${i}_key
+        echo "$SSH_KEY" | tr -d '\r' > "$SSH_KEY_FILE"
+        chmod 600 "$SSH_KEY_FILE"
+
+        echo "--- Deploying to $NAME ($HOST:$PORT) ---"
+        ssh -p "$PORT" -i "$SSH_KEY_FILE" "$USER@$HOST" "mkdir -p $PATH"
+        rsync -avz --delete \
+          -e "ssh -p $PORT -i $SSH_KEY_FILE -o StrictHostKeyChecking=no" \
+          --exclude '.vitepress' \
+          --exclude 'node_modules' \
+          docs/.vitepress/dist/ \
+          "$USER@$HOST:$PATH/"
+        echo "--- $NAME deployment completed ---"
+
+        # 清理 SSH 私钥
+        rm -f "$SSH_KEY_FILE"
+      done
+
+      echo "=== All deployments completed ==="
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    # - if: $CI_COMMIT_TAG =~ /^v/
+  when: manual
