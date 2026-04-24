@@ -39,7 +39,7 @@ deploy-docs:
   image: alpine:latest
   before_script:
     - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-    - apk add --no-cache openssh-client rsync coreutils
+    - apk add --no-cache openssh-client coreutils
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh
   script:
     - |
@@ -78,9 +78,8 @@ deploy-docs:
 
         echo "--- Deploying to $NAME ($HOST:$PORT) ---"
         ssh -p "$PORT" -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no "$USER@$HOST" "mkdir -p $DEST"
-        rsync -avz --delete -e "ssh -p $PORT -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no" \
-          --exclude '.vitepress' --exclude 'node_modules' \
-          docs/.vitepress/dist/ "$USER@$HOST:$DEST/"
+        scp -r -P "$PORT" -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no \
+          docs/.vitepress/dist/* "$USER@$HOST:$DEST/"
         echo "--- $NAME done ---"
         rm -f ~/.ssh/deploy_key_$i
       done
