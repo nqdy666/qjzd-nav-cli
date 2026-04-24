@@ -10,6 +10,12 @@ build-docs:
   stage: build
   image: harbor.nianqin.vip/proxy/node:22-slim
   before_script:
+    # 1. 配置 apt 使用阿里云镜像
+    - sed -i 's|http://deb.debian.org|http://mirrors.aliyun.com|g' /etc/apt/sources.list
+    - sed -i 's|http://security.debian.org|http://mirrors.aliyun.com|g' /etc/apt/sources.list
+    - apt-get update
+    # 2. 安装 git（解决 "git command not found"）
+    - apt-get install -y git
     - npm config set registry $PNPM_CONFIG_REGISTRY
     - npm install -g pnpm
     - pnpm install --frozen-lockfile
