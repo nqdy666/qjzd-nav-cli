@@ -10,8 +10,8 @@ build-docs:
   stage: build
   image: harbor.nianqin.vip/proxy/node:24-alpine
   before_script:
-    # - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-    # - apk add --no-cache git python3 make g++
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk add --no-cache git python3 make g++
     - corepack enable
     - pnpm config set registry $PNPM_CONFIG_REGISTRY
     - pnpm install --frozen-lockfile || pnpm install
