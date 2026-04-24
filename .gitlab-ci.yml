@@ -51,8 +51,8 @@ deploy-docs:
       # 自动检测已配置的服务器数量
       DEPLOY_SERVERS_COUNT=0
       for i in $(seq 1 99); do
-        HOST_VAR="DEPLOY_SERVER_${i}_HOST"
-        if [ -n "${!HOST_VAR}" ]; then
+        HOST_VAL=$(eval echo \$$DEPLOY_SERVER_${i}_HOST)
+        if [ -n "$HOST_VAL" ]; then
           DEPLOY_SERVERS_COUNT=$i
         fi
       done
@@ -65,17 +65,14 @@ deploy-docs:
       echo "=== Starting deployment to $DEPLOY_SERVERS_COUNT server(s) ==="
 
       for i in $(seq 1 "$DEPLOY_SERVERS_COUNT"); do
-        NAME_VAR="DEPLOY_SERVER_${i}_NAME"
-        HOST_VAR="DEPLOY_SERVER_${i}_HOST"
-        USER_VAR="DEPLOY_SERVER_${i}_USER"
-        PORT_VAR="DEPLOY_SERVER_${i}_PORT"
-        PATH_VAR="DEPLOY_SERVER_${i}_PATH"
-        SSH_KEY_VAR="DEPLOY_SERVER_${i}_SSH_KEY"
+        NAME=$(eval echo \$$DEPLOY_SERVER_${i}_NAME)
+        HOST=$(eval echo \$$DEPLOY_SERVER_${i}_HOST)
+        USER=$(eval echo \$$DEPLOY_SERVER_${i}_USER)
+        PORT=$(eval echo \$$DEPLOY_SERVER_${i}_PORT)
+        PATH=$(eval echo \$$DEPLOY_SERVER_${i}_PATH)
+        SSH_KEY=$(eval echo \$$DEPLOY_SERVER_${i}_SSH_KEY)
 
-        NAME="${!NAME_VAR}"
-        HOST="${!HOST_VAR}"
-        USER="${!USER_VAR}"
-        PORT="${!PORT_VAR:-22}"
+        [ -z "$PORT" ] && PORT="22"
         PATH="${!PATH_VAR}"
         SSH_KEY="${!SSH_KEY_VAR}"
 
