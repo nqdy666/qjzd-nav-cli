@@ -45,7 +45,7 @@ deploy-docs:
     - |
       DEPLOY_COUNT=0
       for i in $(seq 1 99); do
-        HOST_VAL=$(eval echo \$DEPLOY_SERVER_${i}_HOST)
+        eval "HOST_VAL=\$DEPLOY_SERVER_${i}_HOST"
         [ -n "$HOST_VAL" ] && DEPLOY_COUNT=$i
       done
 
@@ -54,21 +54,30 @@ deploy-docs:
       echo "=== Deploying to $DEPLOY_COUNT server(s) ==="
 
       for i in $(seq 1 "$DEPLOY_COUNT"); do
-        NAME=$(eval echo \$DEPLOY_SERVER_${i}_NAME)
-        HOST=$(eval echo \$DEPLOY_SERVER_${i}_HOST)
-        USER=$(eval echo \$DEPLOY_SERVER_${i}_USER)
-        PORT=$(eval echo \$DEPLOY_SERVER_${i}_PORT || echo 22)
-        DEST=$(eval echo \$DEPLOY_SERVER_${i}_PATH)
-        KEY=$(eval echo \$DEPLOY_SERVER_${i}_SSH_KEY)
+        eval "NAME=\$DEPLOY_SERVER_${i}_NAME"
+        eval "HOST=\$DEPLOY_SERVER_${i}_HOST"
+        eval "USER=\$DEPLOY_SERVER_${i}_USER"
+        eval "PORT=\$DEPLOY_SERVER_${i}_PORT"
+        eval "DEST=\$DEPLOY_SERVER_${i}_PATH"
+        eval "KEY=\$DEPLOY_SERVER_${i}_SSH_KEY"
 
+        [ -z "$PORT" ] && PORT=22
         [ -z "$HOST" ] && continue
+        [ -z "$KEY" ] && echo "--- $NAME: SSH_KEY is empty, skipping ---" && continue
 
         ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
-        echo "$KEY" | tr -d '\r' > ~/.ssh/deploy_key_$i
+        printf '%s\n' "$KEY" | sed 's/\r$//' > ~/.ssh/deploy_key_$i
         chmod 600 ~/.ssh/deploy_key_$i
 
+        # 检查密钥文件是否有效
+        if ! grep -q "BEGIN.*PRIVATE KEY" ~/.ssh/deploy_key_$i 2>/dev/null; then
+          echo "--- $NAME: Invalid SSH key format ---"
+          rm -f ~/.ssh/deploy_key_$i
+          continue
+        fi
+
         echo "--- Deploying to $NAME ($HOST:$PORT) ---"
-        ssh -p "$PORT" -i ~/.ssh/deploy_key_$i "$USER@$HOST" "mkdir -p $DEST"
+        ssh -p "$PORT" -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no "$USER@$HOST" "mkdir -p $DEST"
         rsync -avz --delete -e "ssh -p $PORT -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no" \
           --exclude '.vitepress' --exclude 'node_modules' \
           docs/.vitepress/dist/ "$USER@$HOST:$DEST/"
