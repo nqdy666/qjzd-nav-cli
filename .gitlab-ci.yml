@@ -10,7 +10,8 @@ build-docs:
   stage: build
   image: harbor.nianqin.vip/proxy/node:22-slim
   before_script:
-    - pnpm config set registry $PNPM_CONFIG_REGISTRY
+    - npm config set registry $PNPM_CONFIG_REGISTRY
+    - npm install -g pnpm
     - pnpm install --frozen-lockfile
   script:
     - pnpm run docs:build
