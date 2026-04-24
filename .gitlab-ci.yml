@@ -10,8 +10,6 @@ build-docs:
   stage: build
   image: harbor.nianqin.vip/proxy/node:22-slim
   before_script:
-    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-    - corepack enable
     - pnpm config set registry $PNPM_CONFIG_REGISTRY
     - pnpm install --frozen-lockfile
   script:
