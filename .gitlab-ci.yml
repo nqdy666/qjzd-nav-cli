@@ -8,12 +8,12 @@ variables:
 
 build-docs:
   stage: build
-  image: node:22-slim
+  image: node:24-alpine
   before_script:
-    - echo 'deb http://mirrors.aliyun.com/debian/ bookworm main contrib non-free non-free-firmware' > /etc/apt/sources.list
-    - apt-get update && apt-get install -y git
-    - npm config set registry $PNPM_CONFIG_REGISTRY
-    - npm install -g pnpm
+    # - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    # - apk add --no-cache git python3 make g++
+    - corepack enable
+    - pnpm config set registry $PNPM_CONFIG_REGISTRY
     - pnpm install --frozen-lockfile || pnpm install
   script:
     - pnpm run docs:build
