@@ -77,7 +77,8 @@ deploy-docs:
         fi
 
         echo "--- Deploying to $NAME ($HOST:$PORT) ---"
-        ssh -p "$PORT" -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no "$USER@$HOST" "mkdir -p $DEST"
+        ssh -p "$PORT" -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no "$USER@$HOST" \
+          "mkdir -p $DEST && ls $DEST/vp-icons.css 2>/dev/null && rm -rf $DEST/* || true"
         scp -r -P "$PORT" -i ~/.ssh/deploy_key_$i -o StrictHostKeyChecking=no \
           docs/.vitepress/dist/* "$USER@$HOST:$DEST/"
         echo "--- $NAME done ---"
