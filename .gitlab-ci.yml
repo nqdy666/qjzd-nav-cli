@@ -73,8 +73,6 @@ deploy-docs:
         SSH_KEY=$(eval echo \$$DEPLOY_SERVER_${i}_SSH_KEY)
 
         [ -z "$PORT" ] && PORT="22"
-        PATH="${!PATH_VAR}"
-        SSH_KEY="${!SSH_KEY_VAR}"
 
         if [ -z "$HOST" ] || [ -z "$USER" ] || [ -z "$PATH" ]; then
           echo "--- Skipping server $i: missing required config ---"
