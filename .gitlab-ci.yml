@@ -8,12 +8,13 @@ variables:
 
 build-docs:
   stage: build
-  image: harbor.nianqin.vip/proxy/node:22-slim
+  image: node:22-alpine
   before_script:
-    - apt-get install -y git
-    - npm config set registry $PNPM_CONFIG_REGISTRY
-    - npm install -g pnpm
-    - pnpm install --frozen-lockfile
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk add --no-cache git python3 make g++
+    - corepack enable
+    - pnpm config set registry $PNPM_CONFIG_REGISTRY
+    - pnpm install --frozen-lockfile || pnpm install
   script:
     - pnpm run docs:build
   artifacts:
@@ -37,7 +38,6 @@ build-docs:
   before_script:
     - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     - apk add --no-cache openssh-client rsync
-    - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
 
