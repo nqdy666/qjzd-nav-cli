@@ -8,7 +8,7 @@ variables:
 
 build-docs:
   stage: build
-  image: node:22-slim
+  image: harbor.nianqin.vip/proxy/node:22-slim
   before_script:
     - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     - corepack enable
