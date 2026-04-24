@@ -37,7 +37,7 @@ variables:
 .ssh_setup: &ssh_setup
   before_script:
     - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-    - apk add --no-cache openssh-client rsync
+    - apk add --no-cache openssh-client rsync coreutils
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
 
